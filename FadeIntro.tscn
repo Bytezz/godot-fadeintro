@@ -7,7 +7,7 @@
 [sub_resource type="Animation" id=1]
 length = 0.001
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:r")
+tracks/0/path = NodePath("CenterContainer/Picture:modulate:r")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -17,7 +17,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/1/type = "bezier"
-tracks/1/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:g")
+tracks/1/path = NodePath("CenterContainer/Picture:modulate:g")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -27,7 +27,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/2/type = "bezier"
-tracks/2/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:b")
+tracks/2/path = NodePath("CenterContainer/Picture:modulate:b")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -37,7 +37,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 )
 }
 tracks/3/type = "bezier"
-tracks/3/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:a")
+tracks/3/path = NodePath("CenterContainer/Picture:modulate:a")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -50,7 +50,7 @@ tracks/3/keys = {
 [sub_resource type="Animation" id=2]
 resource_name = "fadeIn"
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:a")
+tracks/0/path = NodePath("CenterContainer/Picture:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -63,7 +63,7 @@ tracks/0/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "fadeOut"
 tracks/0/type = "bezier"
-tracks/0/path = NodePath("CenterContainer/MarginContainer/Picture:modulate:a")
+tracks/0/path = NodePath("CenterContainer/Picture:modulate:a")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -105,14 +105,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+[node name="Picture" type="TextureRect" parent="CenterContainer"]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 512.0
 margin_top = 300.0
 margin_right = 512.0
 margin_bottom = 300.0
+expand = true
+stretch_mode = 6
 
-[node name="Picture" type="TextureRect" parent="CenterContainer/MarginContainer"]
-modulate = Color( 1, 1, 1, 0 )
-
+[connection signal="resized" from="." to="." method="_on_FadeIntro_resized"]
 [connection signal="timeout" from="HoldTimer" to="." method="_on_HoldTimer_timeout"]
 [connection signal="animation_finished" from="FadeAnimationPlayer" to="." method="_on_FadeAnimationPlayer_animation_finished"]

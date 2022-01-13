@@ -9,13 +9,17 @@ extends Control
 signal finished
 
 onready var Background = get_node("Background")
-onready var Picture = get_node("CenterContainer/MarginContainer/Picture")
+onready var Picture = get_node("CenterContainer/Picture")
 onready var HoldTimer = get_node("HoldTimer")
 onready var FadeAnimationPlayer = get_node("FadeAnimationPlayer")
 
 ## Pics to show with fades
 export(Array, Texture) var pics
 var picIndex = 0
+## Width of image based on window size
+export var sizePerc = 0.5
+## Min width of image in pixels
+export var minSizePx = 300
 ## Time for pics to stay still
 export var holdSeconds = 1
 ## Length of fade in and fade out
@@ -36,6 +40,13 @@ func _ready():
 	
 	if pics!=null and pics.size()>0:
 		Picture.texture = pics[picIndex]
+		
+		# set picture size
+		if get_viewport().size.x*sizePerc < minSizePx:
+			Picture.rect_min_size = Vector2(minSizePx, minSizePx)
+		else:
+			Picture.rect_min_size = get_viewport().size*sizePerc
+		
 		FadeAnimationPlayer.playback_speed = FadeAnimationPlayer.get_animation("fadeIn").length / fadeSeconds
 		FadeAnimationPlayer.play("fadeIn")
 
@@ -55,6 +66,15 @@ func _on_FadeAnimationPlayer_animation_finished(anim_name):
 			FadeAnimationPlayer.play("fadeIn")
 		else:
 			end()
+
+func resizePic():
+	if get_viewport().size.x*sizePerc < minSizePx:
+		$CenterContainer/Picture.rect_min_size = Vector2(minSizePx, minSizePx)
+	else:
+		$CenterContainer/Picture.rect_min_size = get_viewport().size*sizePerc
+
+func _on_FadeIntro_resized():
+	resizePic()
 
 
 func _input(event):

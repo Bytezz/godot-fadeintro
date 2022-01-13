@@ -6,6 +6,8 @@ Intro scene with fading pictures (for Godot Game Engine).
 
 - Signal on finish
 - Multiple pics
+- Customizable pic size (based on window size)
+- Customizable pic min size in pixels
 - Customizable seconds to hold the pic still
 - Customizable seconds for fade animation (in and out)
 - Customizable background color
